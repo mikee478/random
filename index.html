@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+
+        #message {
+            font-size: 2.0em;
+            margin: 20px;
+        }
+
+        .countdown {
+            font-size: 2em;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
+            width: 50%;
+            min-width: 250px; /* Optional, to prevent the countdown from becoming too small */
+            max-width: 25%;
+            text-align: center; /* Center the text */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="message">Now you know how much time is left</div>
+    <div id="countdown1" class="countdown"></div>
+    <div id="countdown2" class="countdown"></div>
+    <div id="countdown3" class="countdown"></div>
+
+    <script>
+        function startCountdown(elementId, targetDate) {
+            const targetTime = new Date(targetDate).getTime();
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetTime - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById(elementId).innerHTML =
+                    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    document.getElementById(elementId).innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        }
+
+        startCountdown('countdown1', '2024-12-22T00:00:00-07:00');
+        startCountdown('countdown2', '2024-11-01T19:51:00-07:00');
+        startCountdown('countdown3', '2024-08-21T18:30:00-07:00');
+</script>
+</body>
+
+</html>
