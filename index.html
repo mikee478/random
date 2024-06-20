@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+
+        #message {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            font-size: 2em;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="message">Now you know how much time is left</div>
+    <div id="countdown"></div>
+
+    <script>
+        // Set the target date and time
+        const targetDate = new Date('2024-07-04T10:13:00-07:00').getTime();
+
+        // Update the countdown every second
+        const countdown = setInterval(() => {
+            // Get the current date and time
+            const now = new Date().getTime();
+
+            // Calculate the difference in milliseconds
+            const distance = targetDate - now;
+
+            // Calculate time components
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the countdown element
+            document.getElementById('countdown').innerHTML =
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            // If the countdown is over, display some text
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.getElementById('countdown').innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>
